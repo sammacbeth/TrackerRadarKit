@@ -67,7 +67,8 @@
             "domain": "tracker-3.com",
             "owner": {
                 "name": "Tracker 3, Inc.",
-                "displayName": "Tracker 3"
+                "displayName": "Tracker 3",
+                "attributedTo": "Tracker 1, Inc."
             },
             "prevalence": 1,
             "fingerprinting": 1,

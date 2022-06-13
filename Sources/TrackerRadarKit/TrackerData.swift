@@ -49,6 +49,19 @@ public struct TrackerData: Codable, Equatable {
         return entities[owner?.name ?? ""]?.domains
     }
     
+    public func parentEntity(for domain: String) -> String? {
+        if self.trackers[domain] != nil {
+            guard let owner = self.trackers[domain]?.owner else {
+                return nil
+            }
+            if owner.attributedTo != nil {
+                return owner.attributedTo
+            }
+            return owner.name
+        }
+        return self.domains[domain]
+    }
+    
     public func findTracker(byCname cname: String) -> KnownTracker? {
         var currdomain = cname
         while currdomain.contains(".") {
@@ -81,10 +94,12 @@ public struct KnownTracker: Codable, Equatable {
         
         public let name: String?
         public let displayName: String?
+        public let attributedTo: String?
 
-        public init(name: String?, displayName: String?) {
+        public init(name: String?, displayName: String?, attributedTo: String? = nil) {
             self.name = name
             self.displayName = displayName
+            self.attributedTo = attributedTo
         }
     
     }

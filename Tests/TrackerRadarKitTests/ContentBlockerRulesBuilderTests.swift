@@ -79,5 +79,21 @@ class ContentBlockerRulesBuilderTests: XCTestCase {
 
         XCTAssertEqual(firstGeneration, secondGeneration)
     }
+    
+    func testLoadingRulesSameEntity() {
+        let data = JSONTestDataLoader.mockTrackerData
+        let mockData = try! JSONDecoder().decode(TrackerData.self, from: data)
+
+        let blockrules = ContentBlockerRulesBuilder(trackerData: mockData).buildRules(
+            withExceptions: [],
+            andTemporaryUnprotectedDomains: []
+        )
+        XCTAssertEqual(mockData.parentEntity(for: "tracker-1.com"), "Tracker 1, Inc.")
+        XCTAssertEqual(mockData.domains["tracker-3.com"], "Tracker 3")
+        XCTAssertEqual(mockData.parentEntity(for: "tracker-3.com"), "Tracker 1, Inc.")
+        XCTAssertNotNil(blockrules.findInUnlessDomain(domain: "*tracker-1.com"))
+        XCTAssertNotNil(blockrules.findInUnlessDomain(domain: "*tracker-3.com"))
+        XCTAssertNotEqual(blockrules.findInUnlessDomain(domain: "*tracker-1.com"), blockrules.findInUnlessDomain(domain: "*tracker-3.com"))
+    }
 
 }

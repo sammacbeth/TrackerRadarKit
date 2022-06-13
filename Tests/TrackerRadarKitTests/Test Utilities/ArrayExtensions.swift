@@ -35,4 +35,16 @@ extension Array where Element == ContentBlockerRule {
 
         return nil
     }
+    
+    func findInUnlessDomain(domain: String) -> ContentBlockerRule? {
+        for rule in self {
+            if let unlessDomain = rule.trigger.unlessDomain {
+                for url in unlessDomain where url == domain {
+                    return rule
+                }
+            }
+        }
+
+        return nil
+    }
 }

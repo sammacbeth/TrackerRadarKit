@@ -11161,10 +11161,11 @@
         "google-analytics.com": {
             "domain": "google-analytics.com",
             "owner": {
-                "name": "Google LLC",
-                "displayName": "Google",
+                "name": "Google Analytics",
+                "displayName": "Google Analytics",
                 "privacyPolicy": "https://policies.google.com/privacy?hl=en&gl=us",
-                "url": "http://google.com"
+                "url": "http://analytics.google.com",
+                "attributedTo": "Google LLC"
             },
             "prevalence": 0.727,
             "fingerprinting": 2,
